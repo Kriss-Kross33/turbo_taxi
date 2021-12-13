@@ -157,9 +157,11 @@ class _SignupScreenState extends State<SignupScreen> {
                   shape: RoundedRectangleBorder(
                       borderRadius: BorderRadius.circular(30)),
                 ),
-                onPressed: () {
-                  // print(_formKey.currentState);
-                  registerNewUser(context);
+                onPressed: () async {
+                  _formKey.currentState?.save();
+                  if (_formKey.currentState!.validate()) {
+                    await registerNewUser(context);
+                  }
                 },
                 child: Text(
                   'Create account',
@@ -187,7 +189,8 @@ class _SignupScreenState extends State<SignupScreen> {
     );
   }
 
-  void registerNewUser(BuildContext context) async {
+  Future<void> registerNewUser(BuildContext context) async {
+    showCustomDialog(context, 'Creating Turbo Taxi account...');
     final _firebaseUser = (await _firebaseAuth
             .createUserWithEmailAndPassword(
       email: _emailTextEditingController.text,
@@ -195,6 +198,7 @@ class _SignupScreenState extends State<SignupScreen> {
     )
             .catchError(
       (error) {
+        Navigator.pop(context);
         Utils.displayToastMessage('Error: ${error.toString()}');
       },
     ))
@@ -202,19 +206,16 @@ class _SignupScreenState extends State<SignupScreen> {
     // User created
     if (_firebaseUser != null) {
       // Save user to database
-      _formKey.currentState?.save();
-      if (_formKey.currentState!.validate()) {
-        Map<String, dynamic> userDataMap = {
-          "name": _nameTextEditingController.text.trim(),
-          "email": _emailTextEditingController.text.trim(),
-          "phone": _phoneNumberTextEditingController.text.trim(),
-          "password": _passwordTextEditingController.text,
-        };
-        userRef.child(_firebaseUser.uid).set(userDataMap);
-        Utils.displayToastMessage('Account created successfully');
-        Navigator.pushReplacementNamed(context, RouteConsts.home);
-      }
+      Map<String, dynamic> userDataMap = {
+        "name": _nameTextEditingController.text.trim(),
+        "email": _emailTextEditingController.text.trim(),
+        "phone": _phoneNumberTextEditingController.text.trim(),
+      };
+      userRef.child(_firebaseUser.uid).set(userDataMap);
+      Utils.displayToastMessage('Account created successfully');
+      Navigator.pushReplacementNamed(context, RouteConsts.home);
     } else {
+      Navigator.pop(context);
       // Error occured - Display error message.
       Utils.displayToastMessage('User account has not been created');
     }
