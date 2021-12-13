@@ -1,0 +1,47 @@
+{
+  "project_info": {
+    "project_number": "56380283319",
+    "firebase_url": "https://turbo-taxi-46937-default-rtdb.firebaseio.com",
+    "project_id": "turbo-taxi-46937",
+    "storage_bucket": "turbo-taxi-46937.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:56380283319:android:b1dc5d7a88e84c7826b032",
+        "android_client_info": {
+          "package_name": "kriss.turbo.taxi"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "56380283319-23f45dp1cjk87kbdt4u3s291lugq3gb2.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDmLmQLOxaJOCG6IR6UOW2_3jXwUR_sJzk"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "56380283319-23f45dp1cjk87kbdt4u3s291lugq3gb2.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "56380283319-di380bloj8969pt1u08j8hlirbt94ckj.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "kriss.turbo.taxi"
+              }
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
