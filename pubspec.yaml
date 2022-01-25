@@ -1,48 +1,44 @@
 name: turbo_taxi
 description: A new Flutter project.
 
-
-publish_to: 'none' 
-
+publish_to: "none"
 
 version: 1.0.0+1
 
 environment:
-  sdk: ">=2.12.0 <3.0.0"
+  sdk: ">=2.15.0 <3.0.0"
 
 dependencies:
+  connectivity: ^3.0.6
+  cupertino_icons: ^1.0.2
+  firebase_auth: null
+  firebase_core: null
+  firebase_crashlytics: ^2.4.4
+  firebase_database: null
   flutter:
     sdk: flutter
-
-
-  cupertino_icons: ^1.0.2
-  firebase_core:
-  firebase_auth:
-  firebase_database:
   flutter_bloc: ^7.3.3
-  fluttertoast: ^8.0.8
   flutter_form_builder: ^7.0.0
+  fluttertoast: ^8.0.8
+  font_awesome_flutter: ^9.2.0
   form_builder_validators: ^7.2.0
-  connectivity: ^3.0.6
+  geolocator: ^8.0.3
+  google_maps_flutter: ^2.1.1
   internet_connection_checker: ^0.0.1+3
-  
+  modal_bottom_sheet: ^2.0.0
+  permission_handler: ^8.3.0
 
 dev_dependencies:
+  flutter_lints: ^1.0.4
   flutter_test:
     sdk: flutter
 
-
 flutter:
-
- 
   uses-material-design: true
 
-  
   assets:
     - assets/images/
     - assets/sounds/
-
-  
 
   fonts:
     - family: Bolt
@@ -53,4 +49,3 @@ flutter:
     - family: Signatra
       fonts:
         - asset: assets/fonts/Signatra.ttf
-  

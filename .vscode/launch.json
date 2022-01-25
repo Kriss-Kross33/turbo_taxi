@@ -1,0 +1,29 @@
+{
+    // Use IntelliSense to learn about possible attributes.
+    // Hover to view descriptions of existing attributes.
+    // For more information, visit: https://go.microsoft.com/fwlink/?linkid=830387
+    "version": "0.2.0",
+    "configurations": [
+        {
+            "name": "turbo_taxi",
+            "cwd": "turbo_taxi",
+            "request": "launch",
+            "type": "dart"
+           // "flutterMode": "profile",
+        },
+        {
+            "name": "turbo_taxi (profile mode)",
+            "cwd": "turbo_taxi",
+            "request": "launch",
+            "type": "dart",
+            "flutterMode": "profile"
+        },
+        {
+            "name": "turbo_taxi (release mode)",
+            "cwd": "turbo_taxi",
+            "request": "launch",
+            "type": "dart",
+            "flutterMode": "release"
+        }
+    ]
+}
