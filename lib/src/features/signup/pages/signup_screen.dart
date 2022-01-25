@@ -14,11 +14,10 @@ class SignupScreen extends StatefulWidget {
 }
 
 class _SignupScreenState extends State<SignupScreen> {
-  TextEditingController _nameTextEditingController = TextEditingController();
-  TextEditingController _emailTextEditingController = TextEditingController();
-  TextEditingController _passwordTextEditingController =
-      TextEditingController();
-  TextEditingController _phoneNumberTextEditingController =
+  TextEditingController nameTextEditingController = TextEditingController();
+  TextEditingController emailTextEditingController = TextEditingController();
+  TextEditingController passwordTextEditingController = TextEditingController();
+  TextEditingController phoneNumberTextEditingController =
       TextEditingController();
 
   late FirebaseAuth _firebaseAuth;
@@ -29,7 +28,7 @@ class _SignupScreenState extends State<SignupScreen> {
   @override
   void initState() {
     _firebaseAuth = FirebaseAuth.instance;
-    userRef = FirebaseDatabase.instance.reference().child('users');
+    userRef = FirebaseDatabase.instance.ref().child('users');
     super.initState();
   }
 
@@ -44,7 +43,7 @@ class _SignupScreenState extends State<SignupScreen> {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.center,
             children: [
-              SizedBox(
+              const SizedBox(
                 height: 45.0,
               ),
               Align(
@@ -55,17 +54,17 @@ class _SignupScreenState extends State<SignupScreen> {
                 ),
                 alignment: Alignment.topCenter,
               ),
-              SizedBox(
+              const SizedBox(
                 height: 15.0,
               ),
               Text(
-                AppConst.signup_as_rider,
+                AppConst.signupAsRider,
                 style: Theme.of(context)
                     .textTheme
                     .headline5
                     ?.copyWith(fontWeight: FontWeight.bold),
               ),
-              SizedBox(
+              const SizedBox(
                 height: 10.0,
               ),
               FormBuilderTextField(
@@ -74,7 +73,7 @@ class _SignupScreenState extends State<SignupScreen> {
                   FormBuilderValidators.required(context),
                   FormBuilderValidators.minLength(context, 3),
                 ]),
-                controller: _nameTextEditingController,
+                controller: nameTextEditingController,
                 style: Theme.of(context)
                     .textTheme
                     .bodyText2
@@ -94,7 +93,7 @@ class _SignupScreenState extends State<SignupScreen> {
                   FormBuilderValidators.email(context),
                   FormBuilderValidators.maxLength(context, 40),
                 ]),
-                controller: _emailTextEditingController,
+                controller: emailTextEditingController,
                 style: Theme.of(context)
                     .textTheme
                     .bodyText2
@@ -115,7 +114,7 @@ class _SignupScreenState extends State<SignupScreen> {
                   // FormBuilderValidators.max(context, 10),
                   FormBuilderValidators.numeric(context),
                 ]),
-                controller: _phoneNumberTextEditingController,
+                controller: phoneNumberTextEditingController,
                 style: Theme.of(context)
                     .textTheme
                     .bodyText2
@@ -134,7 +133,7 @@ class _SignupScreenState extends State<SignupScreen> {
                   FormBuilderValidators.required(context),
                   FormBuilderValidators.minLength(context, 6),
                 ]),
-                controller: _passwordTextEditingController,
+                controller: passwordTextEditingController,
                 style: Theme.of(context)
                     .textTheme
                     .bodyText2
@@ -147,13 +146,13 @@ class _SignupScreenState extends State<SignupScreen> {
                       ),
                 ),
               ),
-              SizedBox(
+              const SizedBox(
                 height: 50.0,
               ),
               ElevatedButton(
                 style: ElevatedButton.styleFrom(
                   primary: AppColor.goldDeep,
-                  fixedSize: Size(300, 55),
+                  fixedSize: const Size(300, 55),
                   shape: RoundedRectangleBorder(
                       borderRadius: BorderRadius.circular(30)),
                 ),
@@ -168,7 +167,7 @@ class _SignupScreenState extends State<SignupScreen> {
                   style: Theme.of(context).textTheme.button,
                 ),
               ),
-              SizedBox(
+              const SizedBox(
                 height: 20.0,
               ),
               TextButton(
@@ -193,8 +192,8 @@ class _SignupScreenState extends State<SignupScreen> {
     showCustomDialog(context, 'Creating Turbo Taxi account...');
     final _firebaseUser = (await _firebaseAuth
             .createUserWithEmailAndPassword(
-      email: _emailTextEditingController.text,
-      password: _passwordTextEditingController.text,
+      email: emailTextEditingController.text,
+      password: passwordTextEditingController.text,
     )
             .catchError(
       (error) {
@@ -207,9 +206,9 @@ class _SignupScreenState extends State<SignupScreen> {
     if (_firebaseUser != null) {
       // Save user to database
       Map<String, dynamic> userDataMap = {
-        "name": _nameTextEditingController.text.trim(),
-        "email": _emailTextEditingController.text.trim(),
-        "phone": _phoneNumberTextEditingController.text.trim(),
+        "name": nameTextEditingController.text.trim(),
+        "email": emailTextEditingController.text.trim(),
+        "phone": phoneNumberTextEditingController.text.trim(),
       };
       userRef.child(_firebaseUser.uid).set(userDataMap);
       Utils.displayToastMessage('Account created successfully');

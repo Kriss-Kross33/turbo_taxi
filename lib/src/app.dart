@@ -5,6 +5,7 @@ import 'package:turbo_taxi/src/features/signup/pages/signup_screen.dart';
 import 'core/core.dart';
 
 class App extends StatelessWidget {
+  const App({Key? key}) : super(key: key);
   // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
@@ -12,11 +13,12 @@ class App extends StatelessWidget {
       title: AppTheme.fontFamily,
       debugShowCheckedModeBanner: false,
       theme: AppTheme.defaultTheme,
-      home: SignupScreen(),
+      home: const SignupScreen(),
       onGenerateRoute: RouteGenerator.generateRoute,
-      localizationsDelegates: [
+      localizationsDelegates: const [
         FormBuilderLocalizations.delegate,
       ],
+      initialRoute: RouteConsts.home,
     );
   }
 }

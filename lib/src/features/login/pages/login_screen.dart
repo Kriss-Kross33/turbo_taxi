@@ -13,9 +13,8 @@ class LoginScreen extends StatefulWidget {
 }
 
 class _LoginScreenState extends State<LoginScreen> {
-  TextEditingController _emailTextEditingController = TextEditingController();
-  TextEditingController _passwordTextEditingController =
-      TextEditingController();
+  TextEditingController emailTextEditingController = TextEditingController();
+  TextEditingController passwordTextEditingController = TextEditingController();
 
   final _formKey = GlobalKey<FormBuilderState>();
 
@@ -25,119 +24,128 @@ class _LoginScreenState extends State<LoginScreen> {
   @override
   void initState() {
     _firebaseAuth = FirebaseAuth.instance;
-    _userRef = FirebaseDatabase.instance.reference().child('users');
+    _userRef = FirebaseDatabase.instance.ref().child('users');
     super.initState();
   }
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      body: Padding(
-        padding: const EdgeInsets.symmetric(horizontal: 20.0),
-        child: FormBuilder(
-          key: _formKey,
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.center,
-            children: [
-              SizedBox(
-                height: 45.0,
-              ),
-              Align(
-                child: Image.asset(
-                  AssetConsts.logo,
-                  height: 250.0,
-                  width: 350.0,
+    return GestureDetector(
+      onTap: () {
+        FocusScope.of(context).requestFocus(FocusNode());
+      },
+      onLongPress: () {
+        FocusScope.of(context).requestFocus(FocusNode());
+      },
+      child: Scaffold(
+        resizeToAvoidBottomInset: false,
+        body: Padding(
+          padding: const EdgeInsets.symmetric(horizontal: 20.0),
+          child: FormBuilder(
+            key: _formKey,
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.center,
+              children: [
+                const SizedBox(
+                  height: 45.0,
                 ),
-                alignment: Alignment.topCenter,
-              ),
-              SizedBox(
-                height: 15.0,
-              ),
-              Text(
-                AppConst.login_as_rider,
-                style: Theme.of(context)
-                    .textTheme
-                    .headline5
-                    ?.copyWith(fontWeight: FontWeight.bold),
-              ),
-              SizedBox(
-                height: 10.0,
-              ),
-              FormBuilderTextField(
-                name: 'email',
-                validator: FormBuilderValidators.compose([
-                  FormBuilderValidators.required(context),
-                  FormBuilderValidators.email(context),
-                  FormBuilderValidators.maxLength(context, 40),
-                ]),
-                controller: _emailTextEditingController,
-                style: Theme.of(context)
-                    .textTheme
-                    .bodyText2
-                    ?.copyWith(fontWeight: FontWeight.w600),
-                keyboardType: TextInputType.emailAddress,
-                decoration: InputDecoration(
-                  labelText: 'Email',
-                  labelStyle: Theme.of(context).textTheme.bodyText1?.copyWith(
-                        color: AppColor.lightGrey,
-                      ),
+                Align(
+                  child: Image.asset(
+                    AssetConsts.logo,
+                    height: 250.0,
+                    width: 350.0,
+                  ),
+                  alignment: Alignment.topCenter,
                 ),
-              ),
-              FormBuilderTextField(
-                name: 'password',
-                validator: FormBuilderValidators.compose([
-                  FormBuilderValidators.required(context),
-                  FormBuilderValidators.minLength(context, 6),
-                ]),
-                controller: _passwordTextEditingController,
-                style: Theme.of(context)
-                    .textTheme
-                    .bodyText2
-                    ?.copyWith(fontWeight: FontWeight.w600),
-                obscureText: true,
-                decoration: InputDecoration(
-                  labelText: 'Password',
-                  labelStyle: Theme.of(context).textTheme.bodyText1?.copyWith(
-                        color: AppColor.lightGrey,
-                      ),
+                const SizedBox(
+                  height: 15.0,
                 ),
-              ),
-              SizedBox(
-                height: 50.0,
-              ),
-              ElevatedButton(
-                style: ElevatedButton.styleFrom(
-                  primary: AppColor.goldDeep,
-                  fixedSize: Size(300, 55),
-                  shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(30)),
+                Text(
+                  AppConst.loginAsRider,
+                  style: Theme.of(context)
+                      .textTheme
+                      .headline5
+                      ?.copyWith(fontWeight: FontWeight.bold),
                 ),
-                onPressed: () async {
-                  _formKey.currentState?.save();
-                  if (_formKey.currentState!.validate()) {
-                    await loginUser(context);
-                  }
-                },
-                child: Text(
-                  'Login',
-                  style: Theme.of(context).textTheme.button,
+                const SizedBox(
+                  height: 10.0,
                 ),
-              ),
-              SizedBox(
-                height: 20.0,
-              ),
-              TextButton(
-                  onPressed: () {
-                    Navigator.of(context)
-                        .pushReplacementNamed(RouteConsts.signup);
+                FormBuilderTextField(
+                  name: 'email',
+                  validator: FormBuilderValidators.compose([
+                    FormBuilderValidators.required(context),
+                    FormBuilderValidators.email(context),
+                    FormBuilderValidators.maxLength(context, 40),
+                  ]),
+                  controller: emailTextEditingController,
+                  style: Theme.of(context)
+                      .textTheme
+                      .bodyText2
+                      ?.copyWith(fontWeight: FontWeight.w600),
+                  keyboardType: TextInputType.emailAddress,
+                  decoration: InputDecoration(
+                    labelText: 'Email',
+                    labelStyle: Theme.of(context).textTheme.bodyText1?.copyWith(
+                          color: AppColor.lightGrey,
+                        ),
+                  ),
+                ),
+                FormBuilderTextField(
+                  name: 'password',
+                  validator: FormBuilderValidators.compose([
+                    FormBuilderValidators.required(context),
+                    FormBuilderValidators.minLength(context, 6),
+                  ]),
+                  controller: passwordTextEditingController,
+                  style: Theme.of(context)
+                      .textTheme
+                      .bodyText2
+                      ?.copyWith(fontWeight: FontWeight.w600),
+                  obscureText: true,
+                  decoration: InputDecoration(
+                    labelText: 'Password',
+                    labelStyle: Theme.of(context).textTheme.bodyText1?.copyWith(
+                          color: AppColor.lightGrey,
+                        ),
+                  ),
+                ),
+                const SizedBox(
+                  height: 50.0,
+                ),
+                ElevatedButton(
+                  style: ElevatedButton.styleFrom(
+                    primary: AppColor.goldDeep,
+                    fixedSize: const Size(300, 55),
+                    shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(30)),
+                  ),
+                  onPressed: () async {
+                    _formKey.currentState?.save();
+                    if (_formKey.currentState!.validate()) {
+                      await loginUser(context);
+                    }
                   },
                   child: Text(
-                    'Do not have an account? Register here',
-                    style: Theme.of(context).textTheme.bodyText2?.copyWith(
-                          fontWeight: FontWeight.bold,
-                        ),
-                  ))
-            ],
+                    'Login',
+                    style: Theme.of(context).textTheme.button,
+                  ),
+                ),
+                const SizedBox(
+                  height: 20.0,
+                ),
+                TextButton(
+                    onPressed: () {
+                      Navigator.of(context)
+                          .pushReplacementNamed(RouteConsts.signup);
+                    },
+                    child: Text(
+                      'Do not have an account? Register here',
+                      style: Theme.of(context).textTheme.bodyText2?.copyWith(
+                            fontWeight: FontWeight.bold,
+                          ),
+                    ))
+              ],
+            ),
           ),
         ),
       ),
@@ -149,8 +157,8 @@ class _LoginScreenState extends State<LoginScreen> {
     _formKey.currentState?.save();
     final firebaseUser = (await _firebaseAuth
             .signInWithEmailAndPassword(
-                email: _emailTextEditingController.text,
-                password: _passwordTextEditingController.text)
+                email: emailTextEditingController.text,
+                password: passwordTextEditingController.text)
             .catchError(
       (error) {
         Navigator.pop(context);
@@ -159,8 +167,8 @@ class _LoginScreenState extends State<LoginScreen> {
     ))
         .user;
     if (firebaseUser != null) {
-      _userRef.child(firebaseUser.uid).once().then((DataSnapshot snapshot) {
-        if (snapshot.value != null) {
+      _userRef.child(firebaseUser.uid).once().then((snapshot) async {
+        if (snapshot.snapshot.value != null) {
           Navigator.pushReplacementNamed(context, RouteConsts.home);
           Utils.displayToastMessage('Login Successful.');
         } else {

@@ -22,6 +22,7 @@ class _HomeScreenState extends State<HomeScreen> {
 
   @override
   void initState() {
+    TurboPermissionHandler.requestLocationPermission();
     _googleMapController = Completer<GoogleMapController>();
     super.initState();
   }
@@ -33,7 +34,8 @@ class _HomeScreenState extends State<HomeScreen> {
 
   Future<void> locatePosition() async {
     currentPosition = await Geolocator.getCurrentPosition(
-        desiredAccuracy: LocationAccuracy.high);
+      desiredAccuracy: LocationAccuracy.high,
+    );
     LatLng latLngPosition =
         LatLng(currentPosition.latitude, currentPosition.longitude);
     CameraPosition cameraPosition =
@@ -64,8 +66,7 @@ class _HomeScreenState extends State<HomeScreen> {
               onMapCreated: (GoogleMapController controller) async {
                 _googleMapController.complete(controller);
                 newGoogleMapController = controller;
-                await TurboPermissionHandler.requestLocationPermission();
-                await locatePosition();
+                // await locatePosition();
               },
             ),
             const HomeBody(),
