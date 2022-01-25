@@ -8,11 +8,11 @@ class RouteGenerator {
   static Route<dynamic> generateRoute(RouteSettings settings) {
     switch (settings.name) {
       case RouteConsts.login:
-        return MaterialPageRoute(builder: (context) => LoginScreen());
+        return MaterialPageRoute(builder: (context) => const LoginScreen());
       case RouteConsts.signup:
-        return MaterialPageRoute(builder: (context) => SignupScreen());
+        return MaterialPageRoute(builder: (context) => const SignupScreen());
       case RouteConsts.home:
-        return MaterialPageRoute(builder: (context) => HomeScreen());
+        return MaterialPageRoute(builder: (context) => const HomeScreen());
       default:
         return _errorRoute();
     }
@@ -22,7 +22,7 @@ class RouteGenerator {
     return MaterialPageRoute(
       builder: (BuildContext context) => Scaffold(
         body: Column(
-          children: [
+          children: const [
             Center(
               child: Text(
                 'ERROR: UNKNOWN ROUTE',

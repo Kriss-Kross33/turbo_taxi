@@ -7,12 +7,12 @@ class AppTheme {
   static const String fontFamily = 'Bolt';
   static ThemeData get defaultTheme => _lightTheme;
 
-  static ThemeData _lightTheme = ThemeData(
+  static final ThemeData _lightTheme = ThemeData(
     primarySwatch: Colors.deepPurple,
     visualDensity: VisualDensity.adaptivePlatformDensity,
-    appBarTheme: AppBarTheme(elevation: 0),
+    appBarTheme: const AppBarTheme(elevation: 0),
     textTheme: _lightTextTheme,
-    colorScheme: ColorScheme.light(),
+    colorScheme: const ColorScheme.light(),
   );
 
   static const _lightTextTheme = TextTheme(
