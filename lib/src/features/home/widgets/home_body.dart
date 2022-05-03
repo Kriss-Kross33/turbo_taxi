@@ -21,8 +21,8 @@ class HomeBody extends StatelessWidget {
           boxShadow: <BoxShadow>[
             BoxShadow(
               color: AppColor.chineseBlack,
-              blurRadius: 16.0,
-              spreadRadius: 0.5,
+              blurRadius: 0.5,
+              spreadRadius: 0.1,
               offset: Offset(0.7, 0.7),
             )
           ],

@@ -3,6 +3,7 @@ import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:geolocator/geolocator.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
+import 'package:permission_handler/permission_handler.dart';
 import 'package:turbo_taxi/src/core/core.dart';
 import 'package:turbo_taxi/src/features/home/widgets/widgets.dart';
 
@@ -22,9 +23,18 @@ class _HomeScreenState extends State<HomeScreen> {
 
   @override
   void initState() {
-    TurboPermissionHandler.requestLocationPermission();
     _googleMapController = Completer<GoogleMapController>();
     super.initState();
+  }
+
+  void handlePermissions() async {
+    PermissionStatus status =
+        await TurboPermissionHandler.checkLocationPermission();
+    if (status.isDenied) {
+      bool isPermissionGranted =
+          await TurboPermissionHandler.requestLocationPermission();
+      if (isPermissionGranted) return;
+    }
   }
 
   @override

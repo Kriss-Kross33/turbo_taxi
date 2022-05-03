@@ -4,14 +4,21 @@ import 'package:permission_handler/permission_handler.dart';
 class TurboPermissionHandler {
   const TurboPermissionHandler._();
 
-  static Future<void> requestLocationPermission() async {
-    var status = await Permission.location.status;
-    // if (await Permission.location.request().isGranted) {
-    //   debugPrint('PERMISSION GRANTED');
-    // }
-    if (status.isDenied) {
-      debugPrint('PERMISSION DENIED');
+  static Future<PermissionStatus> checkLocationPermission() async {
+    return await Permission.location.status;
+  }
+
+  static Future<bool> requestLocationPermission() async {
+    final status = await Permission.location.request();
+    if (status.isGranted) {
+      return true;
+    } else if (status.isDenied) {
       await Permission.location.request();
+      return false;
+    } else if (status.isPermanentlyDenied) {
+      openAppSettings();
+      return false;
     }
+    return false;
   }
 }
